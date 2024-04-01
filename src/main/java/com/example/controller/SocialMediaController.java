@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import com.example.service.AccountService;
+import com.example.service.MessageService;
 
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller using Spring. The endpoints you will need can be
@@ -8,5 +10,6 @@ package com.example.controller;
  * refer to prior mini-project labs and lecture materials for guidance on how a controller may be built.
  */
 public class SocialMediaController {
-
+    AccountService accountService;
+    MessageService messageService;
 }
