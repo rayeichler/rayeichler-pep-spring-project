@@ -46,6 +46,10 @@ public class AccountService {
         }
     }
 
+    public boolean isRegisteredUser(int accountID){
+        return accountRepository.findById(accountID).isPresent();
+    }
+
     private List<String> getAllUsernames(){
         List<Account> accountList = accountRepository.findAll();
         List<String> userNames = new ArrayList<>();

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.example.entity.Account;
+import com.example.entity.Message;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
 
@@ -43,5 +44,10 @@ public class SocialMediaController {
     @PostMapping("login")
     public @ResponseBody ResponseEntity<Account> accountLogin(@RequestBody Account account){
       return accountService.accountLogin(account);
+    }
+
+    @PostMapping("messages")
+    public @ResponseBody ResponseEntity<Message> addMessage(@RequestBody Message message){
+      return messageService.addMessage(message);
     }
 }
