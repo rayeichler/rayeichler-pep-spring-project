@@ -44,7 +44,7 @@ The app will already be a Spring Boot app with a valid application.properties an
 
 # User Stories
 
-## 1: Our API should be able to process new User registrations.
+## 1: Our API should be able to process new User registrations. (Done)
 
 As a user, I should be able to create a new Account on the endpoint POST localhost:8080/register. The body will contain a representation of a JSON Account, but will not contain an account_id.
 
