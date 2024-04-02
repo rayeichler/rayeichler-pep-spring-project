@@ -36,6 +36,16 @@ public class AccountService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(account);
     }
 
+    public ResponseEntity<Account> accountLogin(Account account){
+        Account registeredAccount = accountRepository.findByUsernameAndPassword(account.getUsername(), account.getPassword()).orElse(null);
+
+        if(registeredAccount != null && registeredAccount.getUsername().equals(account.getUsername()) && registeredAccount.getPassword().equals(account.getPassword())){
+            return ResponseEntity.status(HttpStatus.OK).body(registeredAccount);
+        }else{
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(account);
+        }
+    }
+
     private List<String> getAllUsernames(){
         List<Account> accountList = accountRepository.findAll();
         List<String> userNames = new ArrayList<>();
