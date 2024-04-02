@@ -28,6 +28,10 @@ public class MessageService {
         return messageRepository.findAll();
     }
 
+    public ResponseEntity<Message> getMessageById(Integer messageID){
+        return ResponseEntity.status(HttpStatus.OK).body(messageRepository.findById(messageID).orElse(null));
+    }
+
     public ResponseEntity<Message> addMessage(Message message){
         AccountService accountService = new AccountService(accountRepository);
         String messageText = message.getMessage_text();

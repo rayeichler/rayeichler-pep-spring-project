@@ -1,11 +1,14 @@
 package com.example.controller;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.entity.Account;
@@ -51,5 +54,10 @@ public class SocialMediaController {
     @PostMapping("messages") 
     public @ResponseBody ResponseEntity<Message> addMessage(@RequestBody Message message){
       return messageService.addMessage(message);
+    }
+
+    @GetMapping("messages/{message_id}")
+    public @ResponseBody ResponseEntity<Message> getMessageById(@PathVariable("message_id") Integer message_id){
+      return messageService.getMessageById(message_id);
     }
 }
