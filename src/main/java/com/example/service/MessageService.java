@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.net.http.HttpTimeoutException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,10 @@ public class MessageService {
     public MessageService(MessageRepository messageRepository, AccountRepository accountRepository){
         this.messageRepository = messageRepository;
         this.accountRepository = accountRepository;
+    }
+
+    public List<Message> getAllMessages(){
+        return messageRepository.findAll();
     }
 
     public ResponseEntity<Message> addMessage(Message message){
