@@ -32,6 +32,15 @@ public class MessageService {
         return ResponseEntity.status(HttpStatus.OK).body(messageRepository.findById(messageID).orElse(null));
     }
 
+    public ResponseEntity<Integer> deleteMessageById(Integer messageID){
+        if(messageRepository.existsById(messageID)){
+            messageRepository.deleteById(messageID);
+            return ResponseEntity.status(HttpStatus.OK).body(1);
+        }else{
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        }
+    }
+
     public ResponseEntity<Message> addMessage(Message message){
         AccountService accountService = new AccountService(accountRepository);
         String messageText = message.getMessage_text();
