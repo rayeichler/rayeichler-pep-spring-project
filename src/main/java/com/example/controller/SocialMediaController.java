@@ -1,11 +1,14 @@
 package com.example.controller;
 
+import org.h2.util.json.JSONObject;
+import org.h2.util.json.JSONString;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +20,7 @@ import com.example.entity.Message;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -60,6 +64,16 @@ public class SocialMediaController {
     @GetMapping("messages/{message_id}")
     public @ResponseBody ResponseEntity<Message> getMessageById(@PathVariable("message_id") Integer message_id){
       return messageService.getMessageById(message_id);
+    }
+
+    // @PatchMapping("messages/{message_id}")
+    // public @ResponseBody ResponseEntity<Integer> updateMessageById(@PathVariable("message_id") Integer message_id, @RequestParam String message_text){
+    //   return messageService.updateMessageById(message_id, message_text);
+    // }
+
+    @PatchMapping("messages/{message_id}")
+    public @ResponseBody ResponseEntity<Integer> updateMessageById(@PathVariable("message_id") Integer message_id, @RequestBody Message message){
+      return messageService.updateMessage(message_id, message);
     }
 
     @DeleteMapping("messages/{message_id}")
