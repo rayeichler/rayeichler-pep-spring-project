@@ -32,18 +32,6 @@ public class MessageService {
         return ResponseEntity.status(HttpStatus.OK).body(messageRepository.findById(messageID).orElse(null));
     }
 
-    public ResponseEntity<Integer> updateMessage(Integer message_id, Message message){
-        String messageText = message.getMessage_text();
-        Message oldMessage = messageRepository.findById(message_id).orElse(null);
-
-        if(oldMessage != null && messageText.length() > 0 && messageText.length() < 256){
-            oldMessage.setMessage_text(messageText);
-            messageRepository.save(oldMessage);
-            return ResponseEntity.status(HttpStatus.OK).body(1);
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-    }
-
     public ResponseEntity<Integer> deleteMessageById(Integer messageID){
         if(messageRepository.existsById(messageID)){
             messageRepository.deleteById(messageID);
