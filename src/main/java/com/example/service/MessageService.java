@@ -1,19 +1,17 @@
 package com.example.service;
 
-import java.net.http.HttpTimeoutException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import com.example.entity.Account;
 import com.example.entity.Message;
 import com.example.repository.AccountRepository;
 import com.example.repository.MessageRepository;
 
-@Component
+@Service
 public class MessageService {
     private final MessageRepository messageRepository;
     private final AccountRepository accountRepository;
@@ -31,6 +29,10 @@ public class MessageService {
     public ResponseEntity<Message> getMessageById(Integer messageID){
         return ResponseEntity.status(HttpStatus.OK).body(messageRepository.findById(messageID).orElse(null));
     }
+
+    public List<Message> getMessagesByUser(Integer account_id){
+         return messageRepository.findAllByPostedBy(account_id);
+     }
 
     public ResponseEntity<Integer> deleteMessageById(Integer messageID){
         if(messageRepository.existsById(messageID)){
@@ -52,5 +54,16 @@ public class MessageService {
         }else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
         }
+    }
+
+    public ResponseEntity<Integer> updateMessage(Integer messageID, Message newMessage){
+        String newText = newMessage.getMessage_text();
+        Message oldMessage = messageRepository.findById(messageID).orElse(null);
+        if(oldMessage != null && newText.length() > 0 && newText.length() < 256){
+            oldMessage.setMessage_text(newText);
+            messageRepository.save(oldMessage);
+            return ResponseEntity.status(HttpStatus.OK).body(1);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 }

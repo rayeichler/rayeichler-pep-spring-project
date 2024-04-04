@@ -3,16 +3,14 @@ package com.example.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.function.EntityResponse;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 import com.example.entity.Account;
-import com.example.exception.CustomException_usernameExists;
 import com.example.repository.AccountRepository;
 
-@Component
+@Service
 public class AccountService {
     private final AccountRepository accountRepository;
 
