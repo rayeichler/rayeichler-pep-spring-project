@@ -33,7 +33,7 @@ public class AccountService {
     }
 
     public ResponseEntity<Account> accountLogin(Account account){
-        Account registeredAccount = accountRepository.findByUsernameAndPassword(account.getUsername(), account.getPassword()).orElseGet(null);
+        Account registeredAccount = accountRepository.findByUsernameAndPassword(account.getUsername(), account.getPassword()).orElse(null);
 
         if(registeredAccount != null && registeredAccount.getUsername().equals(account.getUsername()) && registeredAccount.getPassword().equals(account.getPassword())){
             return ResponseEntity.status(HttpStatus.OK).body(registeredAccount);
