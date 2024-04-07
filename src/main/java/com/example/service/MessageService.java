@@ -27,7 +27,7 @@ public class MessageService {
     }
 
     public ResponseEntity<Message> getMessageById(Integer messageID){
-        return ResponseEntity.status(HttpStatus.OK).body(messageRepository.findById(messageID).orElse(null));
+        return ResponseEntity.status(HttpStatus.OK).body(messageRepository.findById(messageID).orElseGet(null));
     }
 
     public List<Message> getMessagesByUser(Integer account_id){
@@ -58,7 +58,7 @@ public class MessageService {
 
     public ResponseEntity<Integer> updateMessage(Integer messageID, Message newMessage){
         String newText = newMessage.getMessage_text();
-        Message oldMessage = messageRepository.findById(messageID).orElse(null);
+        Message oldMessage = messageRepository.findById(messageID).orElseGet(null);
         if(oldMessage != null && newText.length() > 0 && newText.length() < 256){
             oldMessage.setMessage_text(newText);
             messageRepository.save(oldMessage);

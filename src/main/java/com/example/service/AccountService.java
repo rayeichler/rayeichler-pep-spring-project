@@ -26,16 +26,14 @@ public class AccountService {
         if(usernames.contains(username)){
             return ResponseEntity.status(HttpStatus.CONFLICT).body(account);
         }
-
         if(username.length() > 0){
             return ResponseEntity.status(HttpStatus.OK).body(accountRepository.save(account));
         }
-
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(account);
     }
 
     public ResponseEntity<Account> accountLogin(Account account){
-        Account registeredAccount = accountRepository.findByUsernameAndPassword(account.getUsername(), account.getPassword()).orElse(null);
+        Account registeredAccount = accountRepository.findByUsernameAndPassword(account.getUsername(), account.getPassword()).orElseGet(null);
 
         if(registeredAccount != null && registeredAccount.getUsername().equals(account.getUsername()) && registeredAccount.getPassword().equals(account.getPassword())){
             return ResponseEntity.status(HttpStatus.OK).body(registeredAccount);
